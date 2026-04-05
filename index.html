@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code 入門ガイド</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
+    background: #f8f6f2;
+    color: #2d2d2d;
+    line-height: 1.9;
+    font-size: 15px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #d4a574, #c4956a);
+    color: #fff;
+    text-align: center;
+    padding: 60px 20px 50px;
+  }
+  .hero h1 { font-size: 2rem; margin-bottom: 12px; }
+  .hero .subtitle { font-size: 1.1rem; opacity: 0.92; max-width: 560px; margin: 0 auto; line-height: 1.7; }
+
+  .container { max-width: 760px; margin: 0 auto; padding: 0 20px 60px; }
+
+  /* 目次 */
+  .toc {
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin: -30px auto 36px;
+    position: relative;
+    box-shadow: 0 2px 16px rgba(0,0,0,.06);
+  }
+  .toc h2 { font-size: 1.1rem; margin-bottom: 14px; color: #b07d4f; }
+  .toc ol { padding-left: 22px; }
+  .toc li { margin-bottom: 7px; }
+  .toc a { color: #6b5340; text-decoration: none; font-size: .95rem; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* セクション */
+  .section {
+    background: #fff;
+    border-radius: 14px;
+    padding: 34px 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.06);
+  }
+  .step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #d4a574;
+    color: #fff;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: .95rem;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+  .section > h2 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #5a4333;
+    display: flex;
+    align-items: center;
+  }
+  h3 {
+    font-size: 1.05rem;
+    margin: 28px 0 10px;
+    color: #7a6350;
+    padding-top: 8px;
+    border-top: 1px solid #f0ebe4;
+  }
+  h3:first-of-type { border-top: none; margin-top: 18px; }
+  p { margin-bottom: 10px; }
+  ul, ol { padding-left: 22px; margin-bottom: 12px; }
+  li { margin-bottom: 6px; }
+  strong { color: #5a4333; }
+
+  /* コード */
+  pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 10px 0 14px;
+    overflow-x: auto;
+    font-size: .88rem;
+    line-height: 1.7;
+    position: relative;
+  }
+  code { font-family: 'SF Mono', 'Menlo', monospace; }
+  p code, li code, td code {
+    background: #f0ebe4;
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-size: .87rem;
+    color: #8b5e3c;
+  }
+
+  /* 補足・警告 */
+  .note {
+    background: #fdf6ee;
+    border-left: 4px solid #d4a574;
+    padding: 16px 20px;
+    border-radius: 0 10px 10px 0;
+    margin: 14px 0 18px;
+    font-size: .92rem;
+    color: #6b5340;
+  }
+  .warning {
+    background: #fef3f0;
+    border-left: 4px solid #e07a5f;
+    padding: 16px 20px;
+    border-radius: 0 10px 10px 0;
+    margin: 14px 0 18px;
+    font-size: .92rem;
+    color: #8b4032;
+  }
+
+  /* 成功表示 */
+  .success {
+    background: #f0f7ee;
+    border-left: 4px solid #6aaa5e;
+    padding: 16px 20px;
+    border-radius: 0 10px 10px 0;
+    margin: 14px 0 18px;
+    font-size: .92rem;
+    color: #3d6b34;
+  }
+
+  /* テーブル */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 18px;
+    font-size: .92rem;
+  }
+  th {
+    background: #f0ebe4;
+    text-align: left;
+    padding: 11px 14px;
+    font-weight: 600;
+    color: #6b5340;
+  }
+  td {
+    padding: 11px 14px;
+    border-bottom: 1px solid #ede8e1;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  /* 比較 */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .compare-bad, .compare-good { border-radius: 10px; padding: 18px; }
+  .compare-bad { background: #fef3f0; border: 1px solid #f0c4b8; }
+  .compare-good { background: #f0f7ee; border: 1px solid #bdd6b0; }
+  .compare-bad .label { color: #c0513f; font-weight: 700; margin-bottom: 8px; font-size: .95rem; }
+  .compare-good .label { color: #5a8a42; font-weight: 700; margin-bottom: 8px; font-size: .95rem; }
+
+  /* 練習 */
+  .practice {
+    background: #f7f3ee;
+    border-radius: 10px;
+    padding: 22px;
+    margin: 16px 0;
+  }
+  .practice h4 { color: #b07d4f; margin-bottom: 10px; font-size: 1.05rem; }
+
+  /* FAQ */
+  .faq-item {
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #f0ebe4;
+  }
+  .faq-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .faq-q { font-weight: 700; color: #8b5e3c; margin-bottom: 6px; font-size: .97rem; }
+
+  /* マイクロステップ */
+  .micro-steps {
+    counter-reset: micro;
+    list-style: none;
+    padding-left: 0;
+    margin: 10px 0 16px;
+  }
+  .micro-steps li {
+    counter-increment: micro;
+    padding: 12px 16px 12px 52px;
+    position: relative;
+    background: #faf8f5;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ede8e1;
+  }
+  .micro-steps li::before {
+    content: counter(micro);
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    background: #d4a574;
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+    font-size: .8rem;
+    font-weight: 700;
+  }
+
+  /* セットアップボックス */
+  .setup-box {
+    background: linear-gradient(135deg, #f0ebe4, #fdf6ee);
+    border: 2px solid #d4a574;
+    border-radius: 12px;
+    padding: 28px;
+    margin: 16px 0;
+    text-align: center;
+  }
+  .setup-box h4 { color: #8b5e3c; margin-bottom: 12px; font-size: 1.1rem; }
+
+  .footer {
+    text-align: center;
+    padding: 30px;
+    color: #a09080;
+    font-size: .85rem;
+  }
+
+  /* チェックポイント */
+  .checkpoint {
+    background: linear-gradient(135deg, #e8f5e3, #f0f7ee);
+    border: 2px solid #6aaa5e;
+    border-radius: 12px;
+    padding: 22px 26px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .checkpoint .check-title {
+    font-weight: 700;
+    color: #3d6b34;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+  .checkpoint p { color: #4a7a40; margin-bottom: 0; }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.5rem; }
+    .section { padding: 22px 18px; }
+    .compare { grid-template-columns: 1fr; }
+    .micro-steps li { padding-left: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <h1>Claude Code 入門ガイド</h1>
+  <p class="subtitle">プログラミング経験ゼロでも大丈夫。<br>このページの通りに上から順番にやるだけで、<br>Claude Code が使えるようになります。</p>
+</div>
+
+<div class="container">
+
+<!-- 目次 -->
+<div class="toc">
+  <h2>目次（上から順番にやってください）</h2>
+  <ol>
+    <li><a href="#s0">そもそも Claude Code ってなに？</a></li>
+    <li><a href="#s1">ターミナルを開く</a></li>
+    <li><a href="#s2">Node.js をインストールする</a></li>
+    <li><a href="#s3">Claude Code をインストールする</a></li>
+    <li><a href="#s4">Anthropic のアカウントを作る（課金設定）</a></li>
+    <li><a href="#s5">Claude Code を起動する</a></li>
+    <li><a href="#s6">CLAUDE.md を作る（AI への指示書）</a></li>
+    <li><a href="#s7">指示の出し方を覚える</a></li>
+    <li><a href="#s8">覚えておくべき操作一覧</a></li>
+    <li><a href="#s9">安全に使うためのルール</a></li>
+    <li><a href="#s10">実際に練習してみよう</a></li>
+    <li><a href="#s11">よくあるエラーと対処法</a></li>
+    <li><a href="#s12">慣れてきたら次にやること</a></li>
+  </ol>
+</div>
+
+<!-- ============================== -->
+<!-- 0. Claude Code ってなに？ -->
+<!-- ============================== -->
+<div class="section" id="s0">
+  <h2><span class="step-badge">0</span>そもそも Claude Code ってなに？</h2>
+
+  <p>ひとことで言うと、<strong>「AI に指示を出すと、自分のパソコン上で実際にファイルを作ったり編集したりしてくれるツール」</strong>です。</p>
+
+  <table>
+    <tr><th></th><th>普通のAIチャット<br>（ChatGPT / Claude）</th><th>Claude Code</th></tr>
+    <tr><td><strong>できること</strong></td><td>質問に答えてくれる<br>コードを「表示」してくれる</td><td>実際にファイルを作る<br>コードを書いて保存する<br>コマンドを実行する</td></tr>
+    <tr><td><strong>イメージ</strong></td><td>「教えてくれる先生」</td><td>「代わりに作業してくれるアシスタント」</td></tr>
+  </table>
+
+  <div class="note">プログラミングの知識がなくても使えます。日本語で「こういうの作って」と言えば、AIが全部やってくれます。</div>
+</div>
+
+<!-- ============================== -->
+<!-- 1. ターミナルを開く -->
+<!-- ============================== -->
+<div class="section" id="s1">
+  <h2><span class="step-badge">1</span>ターミナルを開く</h2>
+
+  <p>Claude Code は「ターミナル」という、文字だけで操作する画面を使います。<br>
+  難しそうに見えますが、<strong>文字を打って Enter を押すだけ</strong>なので安心してください。</p>
+
+  <h3>Mac でターミナルを開く方法</h3>
+  <ul class="micro-steps">
+    <li>キーボードの <code>Command</code> キーと <code>Space</code> キーを<strong>同時に押す</strong><br>
+    → 画面の中央に検索バーが出てきます（Spotlight検索といいます）</li>
+    <li>検索バーに <strong>「ターミナル」</strong> と入力する</li>
+    <li>「ターミナル」というアプリが表示されるので、<strong>Enter を押す</strong>か、クリックする</li>
+  </ul>
+
+  <div class="success">
+    <strong>成功の確認：</strong>白い（または黒い）ウィンドウが開いて、文字が表示されていれば OK です。<br>
+    <code>あなたのMac名:~ ユーザー名$</code> のような表示が出ていれば成功です。
+  </div>
+
+  <div class="note">
+    <strong>今後よく使うので、ターミナルを Dock に追加しておくと便利です。</strong><br>
+    Dock にあるターミナルのアイコンを右クリック → 「オプション」 → 「Dockに追加」
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 2. Node.js をインストール -->
+<!-- ============================== -->
+<div class="section" id="s2">
+  <h2><span class="step-badge">2</span>Node.js をインストールする</h2>
+
+  <p>Claude Code を動かすために必要なソフトです。<strong>最初に1回入れるだけ</strong>で、あとは触る必要はありません。</p>
+
+  <h3>まず、すでに入っているか確認する</h3>
+  <p>ターミナルに以下を<strong>そのままコピペ</strong>して Enter を押してください：</p>
+  <pre><code>node -v</code></pre>
+
+  <div class="success">
+    <strong><code>v18.0.0</code> 以上の数字が表示された場合</strong> → すでに入っています！ステップ3に進んでください。
+  </div>
+
+  <div class="warning">
+    <strong><code>command not found</code> と表示された場合</strong> → まだ入っていません。下の手順でインストールしてください。
+  </div>
+
+  <h3>Node.js のインストール手順</h3>
+
+  <p><strong>方法A：Homebrew を使う場合（おすすめ）</strong></p>
+  <p>まず Homebrew が入っているか確認します。ターミナルに以下をコピペして Enter：</p>
+  <pre><code>brew -v</code></pre>
+  <p>バージョンが表示されたら、Homebrew は入っています。次のコマンドをコピペして Enter：</p>
+  <pre><code>brew install node</code></pre>
+  <p>数分かかりますが、何も操作しなくて大丈夫です。勝手に進みます。</p>
+
+  <p><strong>方法B：Homebrew が入っていない場合</strong></p>
+  <p><code>brew -v</code> で <code>command not found</code> と出た場合は、先に Homebrew を入れます。<br>
+  以下を<strong>1行まるごとコピペ</strong>して Enter：</p>
+  <pre><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
+  <p>途中で「パスワードを入力してください」と出たら、<strong>Mac のログインパスワード</strong>を入力してください。</p>
+  <div class="note">
+    <strong>パスワード入力中は画面に何も表示されません。</strong>これは正常です。見えなくてもちゃんと入力されているので、打ち終わったら Enter を押してください。
+  </div>
+  <p>Homebrew のインストールが終わったら、続けて以下をコピペして Enter：</p>
+  <pre><code>brew install node</code></pre>
+
+  <h3>インストールできたか確認する</h3>
+  <pre><code>node -v</code></pre>
+  <div class="success">
+    <strong><code>v18.0.0</code> 以上の数字が表示されたら成功です！</strong><br>例：<code>v22.5.1</code> → OK
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 3. Claude Code をインストール -->
+<!-- ============================== -->
+<div class="section" id="s3">
+  <h2><span class="step-badge">3</span>Claude Code をインストールする</h2>
+
+  <p>ターミナルに以下を<strong>そのままコピペ</strong>して Enter を押してください：</p>
+  <pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+
+  <p>2〜3分かかることがあります。画面にいろいろ文字が流れますが、<strong>何も操作しなくて OK</strong> です。</p>
+
+  <div class="warning">
+    <strong>もし「permission denied」というエラーが出た場合：</strong><br>
+    代わりに以下をコピペして Enter してください：
+    <pre><code>sudo npm install -g @anthropic-ai/claude-code</code></pre>
+    パスワードを聞かれたら、Mac のログインパスワードを入力して Enter（画面に文字は表示されません）。
+  </div>
+
+  <h3>インストールできたか確認する</h3>
+  <pre><code>claude --version</code></pre>
+  <div class="success">
+    <strong>バージョン番号が表示されたら成功です！</strong><br>例：<code>1.0.xx</code> のような数字が出ればOK。
+  </div>
+
+  <div class="checkpoint">
+    <div class="check-title">ここまでのチェックポイント</div>
+    <p><code>node -v</code> でバージョンが出る → OK<br>
+    <code>claude --version</code> でバージョンが出る → OK<br>
+    両方出ていれば、インストールは完了です！</p>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 4. アカウント作成 -->
+<!-- ============================== -->
+<div class="section" id="s4">
+  <h2><span class="step-badge">4</span>Anthropic のアカウントを作る（課金設定）</h2>
+
+  <p>Claude Code を使うには、Anthropic（Claude を作っている会社）のアカウントが必要です。</p>
+
+  <ul class="micro-steps">
+    <li>ブラウザで <a href="https://console.anthropic.com" target="_blank"><strong>console.anthropic.com</strong></a> にアクセスする</li>
+    <li>「Sign Up」からアカウントを作成する（メールアドレスで登録）</li>
+    <li>ログインしたら、左メニューの <strong>「Billing」</strong>（請求）をクリック</li>
+    <li><strong>クレジットカードを登録</strong>する</li>
+    <li>「Add Credits」などから <strong>$5〜$10 程度チャージ</strong>する（最初はこれで十分です）</li>
+  </ul>
+
+  <div class="note">
+    <strong>料金のイメージ：</strong><br>
+    Claude Code は使った分だけ料金がかかります（月額ではありません）。<br>
+    普通に使って<strong>1日あたり数十円〜数百円</strong>程度です。<br>
+    最初に $5（約750円）チャージしておけば、しばらく練習できます。
+  </div>
+
+  <div class="warning">
+    <strong>ここを飛ばすと、起動時に「認証エラー」や「API key が無い」というエラーが出ます。</strong><br>
+    必ずクレジットカード登録とチャージを済ませてから次に進んでください。
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 5. 起動する -->
+<!-- ============================== -->
+<div class="section" id="s5">
+  <h2><span class="step-badge">5</span>Claude Code を起動する</h2>
+
+  <p>いよいよ起動です。3つのコマンドを<strong>順番に</strong>実行してください。</p>
+
+  <h3>5-1. 練習用のフォルダを作る</h3>
+  <p>以下をコピペして Enter：</p>
+  <pre><code>mkdir ~/my-first-project</code></pre>
+  <div class="note"><code>mkdir</code> は「フォルダを作る」コマンドです。ホームフォルダに「my-first-project」というフォルダが作られます。</div>
+
+  <h3>5-2. そのフォルダに移動する</h3>
+  <pre><code>cd ~/my-first-project</code></pre>
+  <div class="note"><code>cd</code> は「移動する」コマンドです。作ったフォルダの中に入ります。</div>
+
+  <h3>5-3. Git を初期化する</h3>
+  <pre><code>git init</code></pre>
+
+  <div class="warning">
+    <strong>これ、超重要です。絶対にやってください。</strong><br>
+    Git は「変更履歴を記録する仕組み」です。<br>
+    もし Claude Code が間違った変更をしても、<strong>Git があれば元に戻せます。</strong><br>
+    Git がないと、壊れたファイルを元に戻す方法がありません。
+  </div>
+
+  <div class="success">
+    <strong><code>Initialized empty Git repository</code></strong> と表示されたらOKです。
+  </div>
+
+  <h3>5-4. Claude Code を起動！</h3>
+  <pre><code>claude</code></pre>
+
+  <ul class="micro-steps">
+    <li>初回起動時に、<strong>ブラウザが自動的に開きます</strong></li>
+    <li>Anthropic のログイン画面が出るので、<strong>ステップ4で作ったアカウントでログイン</strong>してください</li>
+    <li>「許可しますか？」のような画面が出たら <strong>「許可」</strong> を押す</li>
+    <li>ターミナルに戻ると、入力待ちの画面になっています</li>
+  </ul>
+
+  <div class="success">
+    <strong>ターミナルに <code>&gt;</code> のような入力待ちの表示が出たら、起動成功です！</strong><br>
+    ここに日本語で指示を打ち込めば、AIが作業を始めてくれます。
+  </div>
+
+  <div class="checkpoint">
+    <div class="check-title">ここまでのチェックポイント</div>
+    <p>ターミナルで Claude Code が起動して入力待ちになっている → 準備完了！<br>
+    ここから先は、使い方を学んでいきましょう。</p>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 6. CLAUDE.md -->
+<!-- ============================== -->
+<div class="section" id="s6">
+  <h2><span class="step-badge">6</span>CLAUDE.md を作る（AI への指示書）</h2>
+
+  <p>CLAUDE.md は「<strong>Claude Code への設定ファイル</strong>」です。<br>
+  「このプロジェクトではこうしてね」というルールを書いておくと、Claude Code が毎回それに従って動いてくれます。</p>
+
+  <h3>なぜ必要？</h3>
+  <table>
+    <tr><th>CLAUDE.md がない場合</th><th>CLAUDE.md がある場合</th></tr>
+    <tr><td>毎回「日本語で書いて」と言わないといけない</td><td>自動的に日本語で対応してくれる</td></tr>
+    <tr><td>いきなりファイルを変更されることがある</td><td>確認してから変更してくれる</td></tr>
+    <tr><td>何のプロジェクトか分からず的外れな回答が来る</td><td>プロジェクトを理解した上で対応してくれる</td></tr>
+  </table>
+
+  <h3>作り方（超簡単）</h3>
+  <p>Claude Code が起動している状態で、以下をそのままコピペして Enter してください：</p>
+  <pre><code>このプロジェクトのCLAUDE.mdを作って。内容は以下の通り：
+- 日本語で対応してください
+- 初心者なので、分かりやすく説明してください
+- ファイルを変更する前に必ず何をするか説明してください
+- 一度にたくさんの変更をせず、1つずつ確認しながら進めてください</code></pre>
+
+  <p>Claude Code が「ファイルを作成します」と聞いてくるので、<strong><code>y</code> を押して Enter</strong> してください。</p>
+
+  <div class="success">
+    <strong>プロジェクトフォルダに <code>CLAUDE.md</code> というファイルができたら成功です！</strong><br>
+    これで次回からClaude Codeがあなた向けに動いてくれます。
+  </div>
+
+  <div class="note">CLAUDE.md は後からいくらでも変更できます。使いながら「こういうルールも追加したいな」と思ったら、どんどん追加していきましょう。</div>
+</div>
+
+<!-- ============================== -->
+<!-- 7. 指示の出し方 -->
+<!-- ============================== -->
+<div class="section" id="s7">
+  <h2><span class="step-badge">7</span>指示の出し方を覚える（ここが一番大事）</h2>
+
+  <p>Claude Code は<strong>指示の出し方で結果が大きく変わります。</strong><br>
+  ここをちゃんと押さえるだけで、「使えない…」から「めっちゃ便利！」に変わります。</p>
+
+  <h3>NG と OK の比較</h3>
+  <div class="compare">
+    <div class="compare-bad">
+      <div class="label">NG：曖昧な指示</div>
+      <pre><code>いい感じのサイト作って</code></pre>
+      <p>→ 何を作ればいいか分からず、<br>自分が思ってたのと全然違うものが出てきます。</p>
+    </div>
+    <div class="compare-good">
+      <div class="label">OK：具体的な指示</div>
+      <pre><code>index.html を作って。
+タイトルは「自己紹介」。
+名前・趣味・好きな食べ物を
+箇条書きで表示して。</code></pre>
+      <p>→ 具体的なので、<br>期待通りのものが出てきます。</p>
+    </div>
+  </div>
+
+  <h3>覚えておくべき指示のコツ 4つ</h3>
+  <table>
+    <tr><th>コツ</th><th>具体例</th></tr>
+    <tr>
+      <td><strong>① 何を作るか</strong>をはっきり言う</td>
+      <td>「HTMLファイルを1つ作って」<br>「Pythonのスクリプトを書いて」</td>
+    </tr>
+    <tr>
+      <td><strong>② 中身</strong>を具体的に書く</td>
+      <td>「見出しは"自己紹介"にして」<br>「名前と趣味を箇条書きで」</td>
+    </tr>
+    <tr>
+      <td><strong>③ 一度に1つだけ</strong>頼む</td>
+      <td>まず1つ作る → 確認 → 次を頼む<br>（10個まとめて頼まない）</td>
+    </tr>
+    <tr>
+      <td><strong>④ 違ったらすぐ</strong>言い直す</td>
+      <td>「そうじゃなくて、こうして」<br>「色を赤じゃなくて青にして」</td>
+    </tr>
+  </table>
+
+  <div class="note">
+    <strong>一番大事なのは③です。</strong><br>
+    「Webサイト全部作って」と一気に頼むのではなく、<br>
+    「まずトップページを作って」→ 確認 → 「次にお問い合わせページを作って」<br>
+    と、<strong>小さく区切って頼む</strong>のがコツです。
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 8. 覚えておくべき操作 -->
+<!-- ============================== -->
+<div class="section" id="s8">
+  <h2><span class="step-badge">8</span>覚えておくべき操作一覧</h2>
+
+  <h3>ターミナルでよく使うコマンド</h3>
+  <table>
+    <tr><th>やりたいこと</th><th>打つもの</th><th>補足</th></tr>
+    <tr><td>Claude Code を起動する</td><td><code>claude</code></td><td>プロジェクトフォルダ内で打つ</td></tr>
+    <tr><td>Claude Code を終了する</td><td><code>/exit</code></td><td>もしくは <code>Ctrl + C</code></td></tr>
+    <tr><td>今どのフォルダにいるか確認</td><td><code>pwd</code></td><td>迷子になったらこれ</td></tr>
+    <tr><td>フォルダの中身を見る</td><td><code>ls</code></td><td>ファイル一覧が出る</td></tr>
+    <tr><td>フォルダを移動する</td><td><code>cd フォルダ名</code></td><td>例：<code>cd ~/my-first-project</code></td></tr>
+  </table>
+
+  <h3>Claude Code の中でよく使う操作</h3>
+  <table>
+    <tr><th>やりたいこと</th><th>やり方</th></tr>
+    <tr><td>指示を出す</td><td>日本語で入力して <strong>Enter</strong></td></tr>
+    <tr><td>変更を許可する</td><td>確認画面で <code>y</code> → Enter</td></tr>
+    <tr><td>変更を拒否する</td><td>確認画面で <code>n</code> → Enter</td></tr>
+    <tr><td>会話をリセットする</td><td><code>/clear</code> と入力</td></tr>
+  </table>
+</div>
+
+<!-- ============================== -->
+<!-- 9. 安全ルール -->
+<!-- ============================== -->
+<div class="section" id="s9">
+  <h2><span class="step-badge">9</span>安全に使うためのルール</h2>
+
+  <h3>絶対に守ってほしい3つのルール</h3>
+
+  <div class="warning">
+    <strong>ルール①：必ず Git 管理されたフォルダで使う</strong><br>
+    <code>git init</code> を実行したフォルダの中でだけ使ってください。<br>
+    Git がないフォルダでファイルを壊されたら、元に戻す方法がありません。
+  </div>
+
+  <div class="warning">
+    <strong>ルール②：確認画面は必ず読んでから許可する</strong><br>
+    Claude Code が「ファイルを変更します」「コマンドを実行します」と聞いてきたら、<br>
+    <strong>何をしようとしているか読んでから</strong> <code>y</code> を押してください。<br>
+    よく分からない場合は <code>n</code> で拒否して、「もっと詳しく説明して」と聞いてください。
+  </div>
+
+  <div class="warning">
+    <strong>ルール③：大事なファイルがあるフォルダでいきなり使わない</strong><br>
+    まずは練習用フォルダ（<code>my-first-project</code>）で慣れてから、<br>
+    本番のプロジェクトで使い始めてください。
+  </div>
+
+  <h3>「やばい、変なことされた！」と思ったら</h3>
+  <p>落ち着いて、以下を順番にやってください：</p>
+  <ul class="micro-steps">
+    <li>まず <code>/exit</code> か <code>Ctrl + C</code> で Claude Code を終了する</li>
+    <li>ターミナルで以下を打って、何が変わったか確認する：
+      <pre><code>git diff</code></pre>
+      変更された内容が赤と緑の文字で表示されます。
+    </li>
+    <li>元に戻したい場合は、以下を実行する：
+      <pre><code>git checkout .</code></pre>
+      これで<strong>すべての変更が元に戻ります。</strong>
+    </li>
+  </ul>
+
+  <div class="success">だから Git が大事なんです。Git さえ入れておけば、いつでも安全に元に戻せます。</div>
+</div>
+
+<!-- ============================== -->
+<!-- 10. 練習 -->
+<!-- ============================== -->
+<div class="section" id="s10">
+  <h2><span class="step-badge">10</span>実際に練習してみよう</h2>
+
+  <p>ここまでの設定が終わったら、実際に Claude Code を使ってみましょう。<br>
+  以下の3つを<strong>順番に</strong>やってみてください。</p>
+
+  <div class="practice">
+    <h4>練習① 自己紹介ページを作る</h4>
+    <p>Claude Code に以下をそのままコピペしてください：</p>
+    <pre><code>index.html を作ってください。内容は以下の通りです：
+- ページのタイトルは「自己紹介」
+- 名前は「（自分の名前）」
+- 趣味は「（自分の趣味）」
+- 好きな食べ物は「（好きな食べ物）」
+- これらを箇条書きで表示してください
+- 見た目はシンプルで読みやすい感じで</code></pre>
+    <p>（自分の名前）などは自分の情報に書き換えてください。</p>
+    <p><strong>できたら確認：</strong>ターミナルを<strong>もう1つ開いて</strong>以下を実行：</p>
+    <pre><code>open ~/my-first-project/index.html</code></pre>
+    <p>ブラウザでページが表示されたら成功です！</p>
+  </div>
+
+  <div class="practice">
+    <h4>練習② ファイルを修正する</h4>
+    <p>Claude Code に以下を入力：</p>
+    <pre><code>さっき作った index.html の趣味の部分を「映画鑑賞」に変えてください</code></pre>
+    <p>ブラウザを更新して、変わっていたら成功！</p>
+  </div>
+
+  <div class="practice">
+    <h4>練習③ ページを追加してリンクでつなぐ</h4>
+    <p>Claude Code に以下を入力：</p>
+    <pre><code>about.html を新しく作ってください。
+内容は「私について」の詳しいプロフィールページです。
+そして index.html から about.html にリンクで飛べるようにしてください。</code></pre>
+    <p>ブラウザでリンクをクリックして、ページが移動したら成功！</p>
+  </div>
+
+  <div class="checkpoint">
+    <div class="check-title">3つの練習ができたら、基本はマスターです！</div>
+    <p>「ファイルを作る」「修正する」「複数ファイルを連携させる」<br>
+    この3つができれば、あとは応用していくだけです。</p>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 11. よくあるエラー -->
+<!-- ============================== -->
+<div class="section" id="s11">
+  <h2><span class="step-badge">11</span>よくあるエラーと対処法</h2>
+
+  <div class="faq-item">
+    <div class="faq-q">「command not found: claude」と出る</div>
+    <p><strong>原因：</strong>Claude Code がインストールされていないか、失敗しています。</p>
+    <p><strong>対処：</strong>以下をもう一度実行してください：</p>
+    <pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+    <p>それでもダメなら：</p>
+    <pre><code>sudo npm install -g @anthropic-ai/claude-code</code></pre>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">「command not found: node」と出る</div>
+    <p><strong>原因：</strong>Node.js がインストールされていません。</p>
+    <p><strong>対処：</strong>ステップ2に戻って Node.js をインストールしてください。</p>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">「command not found: brew」と出る</div>
+    <p><strong>原因：</strong>Homebrew がインストールされていません。</p>
+    <p><strong>対処：</strong>以下を実行してから <code>brew install node</code> を実行：</p>
+    <pre><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">認証エラー / API key が無い</div>
+    <p><strong>原因：</strong>Anthropic のアカウント設定が完了していません。</p>
+    <p><strong>対処：</strong><a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> にログインして、以下を確認：</p>
+    <ul>
+      <li>クレジットカードが登録されているか</li>
+      <li>クレジット（残高）があるか</li>
+    </ul>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">「permission denied」と出る</div>
+    <p><strong>原因：</strong>コマンドを実行する権限がありません。</p>
+    <p><strong>対処：</strong>コマンドの前に <code>sudo</code> をつけてください。例：</p>
+    <pre><code>sudo npm install -g @anthropic-ai/claude-code</code></pre>
+    <p>パスワードを聞かれたら Mac のログインパスワードを入力（画面には表示されません）。</p>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Claude Code がフリーズした / 反応しない</div>
+    <p><strong>対処：</strong><code>Ctrl + C</code> を押して一度終了し、もう一度 <code>claude</code> で起動してください。</p>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">ターミナルに「(END)」と表示されて何もできない</div>
+    <p><strong>対処：</strong>キーボードの <code>q</code> を押してください。元の画面に戻ります。</p>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 12. 次のステップ -->
+<!-- ============================== -->
+<div class="section" id="s12">
+  <h2><span class="step-badge">12</span>慣れてきたら次にやること</h2>
+
+  <p>基本操作に慣れたら、Claude Code でこんなこともできます：</p>
+
+  <table>
+    <tr><th>やりたいこと</th><th>Claude Code への指示の例</th></tr>
+    <tr><td>データを自動で整理したい</td><td>「このCSVファイルを読み込んで、売上順に並べ替えるPythonスクリプトを作って」</td></tr>
+    <tr><td>簡単なWebツールを作りたい</td><td>「テキストを入力したら文字数をカウントしてくれるHTMLを作って」</td></tr>
+    <tr><td>コードの意味を知りたい</td><td>「このファイルの内容を日本語で説明して」</td></tr>
+    <tr><td>エラーを解決したい</td><td>「このエラーが出た。原因と直し方を教えて：（エラーメッセージ貼り付け）」</td></tr>
+  </table>
+
+  <div class="note">
+    <strong>大事なのは「小さく頼む → 確認する → 次を頼む」のサイクルを回すこと。</strong><br>
+    一気に全部やらせようとせず、一歩ずつ進めていきましょう。<br>
+    慣れてくると、だんだん大きなタスクも任せられるようになります。
+  </div>
+
+  <div class="setup-box">
+    <h4>スターターキットもあります</h4>
+    <p>この入門ガイドには「claude-code-starter」フォルダがセットでついています。<br>
+    このフォルダで Claude Code を起動すると、<br>
+    <strong>初心者向けの案内が自動的に始まります。</strong><br><br>
+    ① <code>claude-code-starter</code> フォルダをコピーして好きな場所に置く<br>
+    ② ターミナルで <code>cd claude-code-starter</code> で移動<br>
+    ③ <code>claude</code> で起動 → 自動で案内が始まります</p>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  Claude Code 入門ガイド ─ プログラミング未経験者向け
+</div>
+
+</body>
+</html>
