@@ -808,10 +808,24 @@
 <!-- 4. アカウント作成 -->
 <!-- ============================== -->
 <div class="section" id="s5">
-  <h2><span class="step-badge">5</span>Anthropic のアカウントを作る（課金設定）</h2>
+  <h2><span class="step-badge">5</span>アカウントを作る（課金設定）</h2>
 
-  <p>Claude Code を使うには、Anthropic（クロード を作っている会社）のアカウントが必要です。<br>
+  <p>Claude Code を使うには、課金設定が必要です。<strong>2つの方法があるので、自分に合った方を選んでください。</strong><br>
   ここだけはターミナルではなく、<strong>普段使っているブラウザ（Safari や Chrome など）で作業</strong>します。</p>
+
+  <div class="note">
+    <strong>どっちを選べばいい？</strong><br>
+    <ul>
+      <li><strong>とりあえず試してみたい・安く始めたい</strong> → <strong>方法A（API 従量課金）</strong>がおすすめ。$5（約750円）から始められます</li>
+      <li><strong>毎日しっかり使う予定・料金を気にせず使いたい</strong> → <strong>方法B（月額プラン）</strong>がおすすめ。月額固定で安心です</li>
+    </ul>
+    あとから変更もできるので、迷ったら方法Aで始めてOKです。
+  </div>
+
+  <h3>方法A：API 従量課金（使った分だけ払う）</h3>
+
+  <p>「使った分だけ払う」仕組みです。月額料金はかかりません。<br>
+  最初に少額をチャージして、使うたびに残高から少しずつ減っていきます。</p>
 
   <ul class="micro-steps">
     <li>ブラウザで <a href="https://console.anthropic.com" target="_blank"><strong>console.anthropic.com</strong></a> を開く</li>
@@ -820,6 +834,12 @@
     <li><strong>クレジットカードの情報を登録</strong>する</li>
     <li>「Add Credits」（クレジットを追加）などから <strong>$5〜$10 程度チャージ</strong>する（最初はこれで十分です）</li>
   </ul>
+
+  <div class="note">
+    <strong>料金のイメージ：</strong><br>
+    普通に使って<strong>1日あたり数十円〜数百円</strong>程度です。<br>
+    最初に $5（約750円）チャージしておけば、しばらく練習できます。
+  </div>
 
   <div class="warning">
     <strong>クレジットカード登録でエラーが出て先に進めない場合</strong><br>
@@ -832,16 +852,60 @@
     カード番号・有効期限・セキュリティコードの入力欄は、英語でも見た目で分かるので大丈夫です。
   </div>
 
+  <p><strong>方法Aの人は、ステップ6に進んでください。</strong>起動時のログイン方法で「Anthropic Console account」を選びます。</p>
+
+  <hr style="border: none; border-top: 2px dashed #e0d5c8; margin: 30px 0;">
+
+  <h3>方法B：月額プラン（Claude Pro / Max）</h3>
+
+  <p>月額料金を払って、その範囲内で使い放題に近い形で使える方法です。<br>
+  毎日使う人は、従量課金より<strong>こちらの方がお得で安心</strong>です。</p>
+
+  <table>
+    <thead>
+      <tr><th>プラン</th><th>月額（目安）</th><th>こんな人向け</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Claude Pro</strong></td><td>約 $20（約3,000円）</td><td>毎日ちょっとずつ使いたい人</td></tr>
+      <tr><td><strong>Claude Max 5x</strong></td><td>約 $100（約15,000円）</td><td>毎日ガッツリ使う人・仕事で使う人</td></tr>
+      <tr><td><strong>Claude Max 20x</strong></td><td>約 $200（約30,000円）</td><td>一日中使い倒すヘビーユーザー</td></tr>
+    </tbody>
+  </table>
+
+  <p>以下の手順で登録できます。</p>
+
+  <ul class="micro-steps">
+    <li>ブラウザで <a href="https://claude.ai" target="_blank"><strong>claude.ai</strong></a> を開く</li>
+    <li>まだアカウントがない場合は、<strong>「Sign Up」</strong>（新規登録）をクリックしてアカウントを作成する<br>
+    （Google アカウント or メールアドレスで登録できます）</li>
+    <li>ログインしたら、画面の左下にある自分のアイコン（または名前）をクリック</li>
+    <li>メニューの中から <strong>「Settings」</strong>（設定）をクリック</li>
+    <li>設定画面の中にある <strong>「Subscription」</strong>（サブスクリプション）または <strong>「Upgrade」「Pro/Maxにアップグレード」</strong> のようなボタン・リンクをクリック<br>
+    （もしくは直接 <a href="https://claude.ai/upgrade" target="_blank"><strong>claude.ai/upgrade</strong></a> を開いてもOK）</li>
+    <li>プランを選択する（迷ったら <strong>Claude Pro（月額 $20）</strong> から始めればOK）</li>
+    <li><strong>クレジットカード情報を入力</strong>して、<strong>「Subscribe」</strong>（登録する）をクリック</li>
+    <li>「Your subscription is active」（サブスクリプションが有効です）のような画面が出たら登録完了！</li>
+  </ul>
+
   <div class="note">
-    <strong>料金のイメージ：</strong><br>
-    Claude Code は使った分だけ料金がかかります（月額ではありません）。<br>
-    普通に使って<strong>1日あたり数十円〜数百円</strong>程度です。<br>
-    最初に $5（約750円）チャージしておけば、しばらく練習できます。
+    <strong>登録できたか確認する方法：</strong><br>
+    <a href="https://claude.ai" target="_blank">claude.ai</a> にログインして、画面の左下に <strong>「Pro」や「Max」</strong> のバッジが表示されていれば、プランが有効になっています。
   </div>
 
   <div class="warning">
-    <strong>ここを飛ばすと、Claude Code を起動した時に「認証エラー」や「API key が無い」というエラーが出ます。</strong><br>
-    必ずクレジットカード登録とチャージを済ませてから次に進んでください。
+    <strong>月額プランの登録でうまくいかない場合</strong><br>
+    <ul>
+      <li>API従量課金と同様に、<strong>ブラウザの自動翻訳をオフ</strong>にしてみてください</li>
+      <li>クレジットカードが海外決済に対応しているか確認してください（Visa / Mastercard がおすすめ）</li>
+      <li>それでもダメな場合は、別のブラウザ（Chrome / Safari / Edge）で試してみてください</li>
+    </ul>
+  </div>
+
+  <p><strong>方法Bの人は、ステップ6に進んでください。</strong>起動時のログイン方法で「Claude account with subscription」を選びます。</p>
+
+  <div class="warning">
+    <strong>方法A・方法Bどちらの場合も、ここを飛ばすと Claude Code を起動した時にエラーが出ます。</strong><br>
+    必ず課金設定を済ませてから次に進んでください。
   </div>
 </div>
 
@@ -916,15 +980,15 @@
 
   <ul class="micro-steps">
     <li><strong>テーマ(見た目)の選択：</strong>「Dark mode」「Light mode」などが出てきます。好きな方を<strong>矢印キー(↑↓)で選んで Enter</strong>。迷ったら「Dark mode」でOK</li>
-    <li><strong>ログイン方法の選択：</strong>「How would you like to log in?」のような画面が出ます。以下のような選択肢があります：
+    <li><strong>ログイン方法の選択：</strong>「How would you like to log in?」のような画面が出ます。<strong>ステップ5で選んだ方法に合わせて選んでください：</strong>
       <ul>
-        <li><code>Claude account with subscription</code>（Claude Pro/Maxプランの人用）</li>
-        <li><strong><code>Anthropic Console account</code></strong> ← <strong>ステップ5で作ったアカウントはこちら。これを選んでください</strong></li>
-        <li><code>API key</code>（上級者用）</li>
+        <li><strong>方法A（API 従量課金）の人</strong> → <strong><code>Anthropic Console account</code></strong> を選択</li>
+        <li><strong>方法B（月額プラン Pro/Max）の人</strong> → <strong><code>Claude account with subscription</code></strong> を選択</li>
+        <li><code>API key</code> は上級者用なので無視してOK</li>
       </ul>
-      矢印キー(↑↓)で <strong>「Anthropic Console account」</strong> に合わせて Enter
+      矢印キー(↑↓)で自分に合った方に合わせて Enter
     </li>
-    <li><strong>ブラウザが自動で開きます。</strong>Anthropic のログイン画面が表示されるので、<strong>ステップ5で作ったアカウントでログイン</strong>してください</li>
+    <li><strong>ブラウザが自動で開きます。</strong>ログイン画面が表示されるので、<strong>ステップ5で作ったアカウントでログイン</strong>してください</li>
     <li>「Authorize Claude Code」のような認証許可画面が出たら <strong>「Authorize」</strong>（許可）をクリック</li>
     <li>ブラウザに「You can close this window」のように表示されたら、ブラウザは閉じてOKです</li>
     <li>Cursor のターミナルに戻ると、さらにいくつかの Yes/No 質問が出る場合があります：
@@ -942,8 +1006,10 @@
 
   <div class="warning">
     <strong>もし「Credit balance is too low」や「認証エラー」が出た場合</strong><br>
-    ステップ5で<strong>クレジットのチャージ（$5〜$10）を済ませていない</strong>可能性があります。<br>
-    <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> にログインして、左メニューの「Billing」から <strong>Credits を追加</strong>してから、もう一度 <code>claude</code> を実行してください。
+    <ul>
+      <li><strong>方法Aの人：</strong>ステップ5でクレジットのチャージが済んでいない可能性があります。<a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> にログイン → 左メニューの「Billing」→ Credits を追加してください</li>
+      <li><strong>方法Bの人：</strong>月額プランの登録が完了していないか、ログイン方法の選択で「Claude account with subscription」ではなく別のものを選んだ可能性があります。<a href="https://claude.ai" target="_blank">claude.ai</a> にログインしてプランが有効か確認 → もう一度 <code>claude</code> を実行して正しい選択肢を選んでください</li>
+    </ul>
   </div>
 
   <div class="checkpoint">
