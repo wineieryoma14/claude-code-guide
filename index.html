@@ -22,6 +22,7 @@
   }
   .hero h1 { font-size: 2rem; margin-bottom: 12px; }
   .hero .subtitle { font-size: 1.1rem; opacity: 0.92; max-width: 560px; margin: 0 auto; line-height: 1.7; }
+  .hero .author { font-size: .9rem; opacity: 0.85; margin-top: 18px; letter-spacing: 0.05em; }
 
   .container { max-width: 760px; margin: 0 auto; padding: 0 20px 60px; }
 
@@ -302,6 +303,7 @@
 <div class="hero">
   <h1>Claude Code 入門ガイド</h1>
   <p class="subtitle">プログラミング経験ゼロでも大丈夫。<br>このページの通りに上から順番にやるだけで、<br>Claude Code が使えるようになります。</p>
+  <p class="author">株式会社Lib　福田龍馬</p>
 </div>
 
 <div class="container">
@@ -317,19 +319,21 @@
   <h2>目次（上から順番にやってください）</h2>
   <ol>
     <li><a href="#s0">そもそも Claude Code ってなに？</a></li>
-    <li><a href="#s1">ターミナルを開く</a></li>
-    <li><a href="#s2">Node.js をインストールする</a></li>
-    <li><a href="#s2b" class="os-win">Git をインストールする（Windows のみ）</a></li>
-    <li><a href="#s3">Claude Code をインストールする</a></li>
-    <li><a href="#s4">Anthropic のアカウントを作る（課金設定）</a></li>
-    <li><a href="#s5">Claude Code を起動する</a></li>
-    <li><a href="#s6">CLAUDE.md を作る（AI への指示書）</a></li>
-    <li><a href="#s7">指示の出し方を覚える</a></li>
-    <li><a href="#s8">覚えておくべき操作一覧</a></li>
-    <li><a href="#s9">安全に使うためのルール</a></li>
-    <li><a href="#s10">実際に練習してみよう</a></li>
-    <li><a href="#s11">よくあるエラーと対処法</a></li>
-    <li><a href="#s12">慣れてきたら次にやること</a></li>
+    <li><a href="#s-pricing">料金とプランについて知っておこう</a></li>
+    <li><a href="#s1">Cursor（エディタ）をインストールする</a></li>
+    <li><a href="#s2">Cursor の中でターミナルを開く</a></li>
+    <li><a href="#s3">Node.js をインストールする</a></li>
+    <li class="os-win"><a href="#s3b">Git をインストールする（Windows のみ）</a></li>
+    <li><a href="#s4">Claude Code をインストールする</a></li>
+    <li><a href="#s5">Anthropic のアカウントを作る（課金設定）</a></li>
+    <li><a href="#s6">Claude Code を起動する</a></li>
+    <li><a href="#s7">CLAUDE.md を作る（AI への指示書）</a></li>
+    <li><a href="#s8">指示の出し方を覚える</a></li>
+    <li><a href="#s9">覚えておくべき操作一覧</a></li>
+    <li><a href="#s10">安全に使うためのルール</a></li>
+    <li><a href="#s11">実際に練習してみよう</a></li>
+    <li><a href="#s12">よくあるエラーと対処法</a></li>
+    <li><a href="#s13">慣れてきたら次にやること</a></li>
   </ol>
 </div>
 
@@ -337,89 +341,297 @@
 <!-- 0. Claude Code ってなに？ -->
 <!-- ============================== -->
 <div class="section" id="s0">
-  <h2><span class="step-badge">0</span>そもそも Claude Code ってなに？</h2>
+  <h2><span class="step-badge">0</span>Claude Code はあなたの仕事を実際にやってくれます</h2>
 
-  <p>ひとことで言うと、<strong>「AI に指示を出すと、自分のパソコン上で実際にファイルを作ったり編集したりしてくれるツール」</strong>です。</p>
+  <p>大げさには聞こえるかもしれませんが、事実です。</p>
 
+  <p>Claude Code は、<strong>AI（Claude）にお願いするだけで、自分のパソコン上で勝手にファイルを作ったり、プログラムを書いたり、アプリを完成させてくれるツール</strong>です。<br>
+  「プログラマーが何日もかけて作るもの」を、<strong>日本語でお願いするだけで数分〜数十分で作ってくれます。</strong></p>
+
+  <h3>普通のAIチャットと何が違うの？</h3>
   <table>
-    <tr><th></th><th>普通のAIチャット<br>（ChatGPT / Claude）</th><th>Claude Code</th></tr>
-    <tr><td><strong>できること</strong></td><td>質問に答えてくれる<br>コードを「表示」してくれる</td><td>実際にファイルを作る<br>コードを書いて保存する<br>コマンドを実行する</td></tr>
-    <tr><td><strong>イメージ</strong></td><td>「教えてくれる先生」</td><td>「代わりに作業してくれるアシスタント」</td></tr>
+    <tr><th></th><th>ChatGPT や Claude のチャット</th><th>Claude Code</th></tr>
+    <tr>
+      <td><strong>できること</strong></td>
+      <td>質問に答える<br>コードを「画面に表示」する</td>
+      <td><strong>実際にファイルを作る</strong><br><strong>コードを書いて保存する</strong><br><strong>アプリを動かすところまでやる</strong></td>
+    </tr>
+    <tr>
+      <td><strong>たとえると</strong></td>
+      <td>「教えてくれる先生」<br>（自分で実装は必要）</td>
+      <td>「代わりに手を動かしてくれる<br>超優秀なエンジニア」</td>
+    </tr>
+    <tr>
+      <td><strong>作業量</strong></td>
+      <td>AIの回答を<br>自分でコピペして試す</td>
+      <td><strong>お願いするだけ。</strong><br>あとは待つだけ</td>
+    </tr>
   </table>
 
-  <div class="note">プログラミングの知識がなくても使えます。日本語で「こういうの作って」と言えば、AIが全部やってくれます。</div>
+  <h3>実際にこんなことが全部できます</h3>
+  <ul>
+    <li>💡 <strong>アイデアを言うだけでWebアプリが完成する</strong><br>
+    「顧客管理ツールを作って」→ 本当に動くアプリが数十分で出来上がる</li>
+    <li>📊 <strong>毎日の面倒な作業を自動化してくれる</strong><br>
+    「Excelファイルを読み込んで集計するツールを作って」→ ポチッとやるだけで終わる業務に</li>
+    <li>🌐 <strong>ホームページやLPを自分で作れる</strong><br>
+    デザインも文章も全部お任せ。プログラミング知識ゼロでもOK</li>
+    <li>🔍 <strong>他人が書いた難しいコードを解説してくれる</strong><br>
+    「このファイルを日本語で説明して」→ 新人がベテランになれる</li>
+    <li>🐛 <strong>エラーが出たら自動で直してくれる</strong><br>
+    エラー文を貼るだけで「原因はこれで、こう直せばOKです」と教えて修正まで</li>
+    <li>📝 <strong>文章やブログ記事を大量生産</strong><br>
+    構成を作って、執筆して、画像まで用意してくれる</li>
+  </ul>
+
+  <div class="note">
+    <strong>重要なのは、これらが「サンプル」や「デモ」じゃないということ。</strong><br>
+    実際にプロのエンジニアが現場で使っていて、本物の仕事や事業で<strong>毎日すごい成果を出しているツール</strong>です。<br>
+    そして<strong>その同じツールを、プログラミング経験ゼロのあなたも、今日から使えます。</strong>
+  </div>
+
+  <h3>なぜ今すぐ始めるべきなのか</h3>
+  <p>AIの進化は本当に早くて、<strong>「使いこなせる人」と「使えない人」の差</strong>がどんどん開いていきます。<br>
+  Claude Code は、その差を一気に埋めてくれる最強の武器です。<br>
+  日本語でお願いするだけで、<strong>「個人が会社1つぶんの仕事を回せる時代」</strong>が本当に来ています。</p>
+
+  <p><strong>このガイドの通りにやれば、1時間もかからずに使い始められます。</strong>少しでも興味があるなら、今すぐ始めてください。働き方が本当に変わります。</p>
+
+  <div class="note">
+    <strong>このガイドでは、Cursor（カーソル）というエディタの中で Claude Code を動かします。</strong><br>
+    Cursor を使うと、左側にファイル一覧・下にターミナル（文字を打つ画面）が一緒に表示されるので、初心者でも「今どこで何をしているか」が分かりやすくなります。
+  </div>
 </div>
 
 <!-- ============================== -->
-<!-- 1. ターミナルを開く -->
+<!-- 料金とプランについて -->
+<!-- ============================== -->
+<div class="section" id="s-pricing">
+  <h2>料金とプランについて知っておこう</h2>
+
+  <p>Claude Code を使うには料金がかかります。<strong>始める前に、自分に合った支払い方法を選んでおきましょう。</strong>大きく分けて 2 つの方法があります。</p>
+
+  <h3>方法A：API 従量課金（このガイドで使う方法）</h3>
+  <p><strong>「使った分だけ払う」という仕組みです。</strong>月額料金はありません。</p>
+  <ul>
+    <li><strong>初期チャージ：</strong>最初に $5〜$10（700〜1,500円ほど）をクレジットカードでチャージするだけ</li>
+    <li><strong>使うたびに残高から少しずつ減っていく</strong>（1回の作業で数十円〜数百円程度）</li>
+    <li><strong>メリット：</strong>ほとんど使わない月は料金ゼロ。試してみたい人に最適</li>
+    <li><strong>デメリット：</strong>ガッツリ使うと意外と高くなることも</li>
+    <li><strong>こんな人におすすめ：</strong>まず試してみたい人、週に数回くらいの利用を想定している人</li>
+  </ul>
+  <p>👉 このガイドの<strong>ステップ5</strong>で、この方法のセットアップを案内します。</p>
+
+  <h3>方法B：Claude 定額プラン（Pro / Max）</h3>
+  <p><strong>月額料金を払って、その範囲内で使い放題に近い形で使える方法です。</strong></p>
+
+  <table>
+    <thead>
+      <tr><th>プラン</th><th>月額（目安）</th><th>こんな人向け</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Claude Pro</strong></td><td>約 $20（約3,000円）</td><td>毎日ちょっとずつ使いたい個人</td></tr>
+      <tr><td><strong>Claude Max（5x）</strong></td><td>約 $100（約15,000円）</td><td>毎日ガッツリ使う人・仕事で使う人</td></tr>
+      <tr><td><strong>Claude Max（20x）</strong></td><td>約 $200（約30,000円）</td><td>一日中使い倒すヘビーユーザー</td></tr>
+    </tbody>
+  </table>
+
+  <ul>
+    <li><strong>メリット：</strong>月額固定なので安心して使える。ヘビーユーザーほどお得</li>
+    <li><strong>デメリット：</strong>あまり使わない月も定額がかかる</li>
+    <li><strong>こんな人におすすめ：</strong>毎日仕事で使う予定の人、料金を気にせずガンガン使いたい人</li>
+  </ul>
+  <p>👉 Claude Pro / Max は <a href="https://claude.com/pricing" target="_blank" rel="noopener">claude.com/pricing</a> から申し込めます。契約済みの人は、ステップ6の起動時に <strong>「Claude account with subscription」</strong> を選べばOKです（このガイドの「Anthropic Console account」ではなく）。</p>
+
+  <h3>迷ったらどっちにすればいい？</h3>
+  <ul>
+    <li><strong>とりあえず触ってみたい</strong> → <strong>方法A（API 従量課金）</strong>。$5 チャージで始められます</li>
+    <li><strong>最初からしっかり使う予定</strong> → <strong>方法B（Claude Pro）</strong>。月3,000円で安心して試せます</li>
+    <li><strong>仕事でバンバン使いたい</strong> → <strong>方法B（Claude Max）</strong>。元が取れます</li>
+  </ul>
+
+  <div class="note">
+    💡 <strong>このガイドでは、迷わず始められるように「方法A（API 従量課金）」で進めます。</strong><br>
+    あとから方法Bに変えることもできるので、まずは気軽に始めてOKです。
+  </div>
+
+  <div class="warning">
+    ⚠️ 上記の金額はおおよその目安です。最新の正確な料金は <a href="https://claude.com/pricing" target="_blank" rel="noopener">claude.com/pricing</a> と <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener">anthropic.com/pricing</a> で確認してください。
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 1. Cursor をインストール -->
 <!-- ============================== -->
 <div class="section" id="s1">
-  <h2><span class="step-badge">1</span>ターミナルを開く</h2>
+  <h2><span class="step-badge">1</span>Cursor（エディタ）をインストールする</h2>
 
-  <p>Claude Code は「ターミナル」という、<strong>文字だけで操作する画面</strong>を使います。<br>
-  難しそうに見えますが、<strong>文字を打って Enter を押すだけ</strong>なので安心してください。</p>
+  <p>Cursor は、VS Code という有名なエディタをベースに作られた、<strong>無料で使い始められるエディタ</strong>です。<br>
+  このガイドでは Cursor を「ファイルが見える便利な箱」として使います。</p>
 
-  <!-- ===== Mac版 ===== -->
+  <h3>1-1. Cursor をダウンロードする</h3>
+  <ul class="micro-steps">
+    <li>ブラウザ（<span class="os-mac">Safari や Chrome</span><span class="os-win">Edge や Chrome</span>）で以下のページを開く：<br>
+    <a href="https://cursor.com" target="_blank" style="color: #8b5e3c; font-weight: bold;">https://cursor.com</a></li>
+    <li>画面の真ん中あたりにある大きな <strong>「Download」</strong> ボタンをクリックする<br>
+    → あなたのパソコンに合ったインストーラーが自動的にダウンロードされます</li>
+  </ul>
+
+  <!-- ===== Mac版 Cursorインストール ===== -->
   <div class="os-mac">
-    <h3>Mac でターミナルを開く方法</h3>
+    <h3>1-2. Cursor をインストールする（Mac）</h3>
     <ul class="micro-steps">
-      <li>キーボードの <code>Command</code> キー（⌘マークのキー）と <code>Space</code> キーを<strong>同時に押す</strong><br>
-      → 画面の中央に検索バーが出てきます（「Spotlight検索」といいます）</li>
-      <li>検索バーに <strong>「ターミナル」</strong> とキーボードで入力する</li>
-      <li>「ターミナル」というアプリが表示されるので、<strong>Enter を押す</strong>か、クリックする</li>
+      <li>ダウンロードフォルダの中にある <code>Cursor-*.dmg</code> という名前のファイルを<strong>ダブルクリック</strong>して開く</li>
+      <li>ウィンドウが開いたら、<strong>Cursor のアイコンを「Applications」フォルダにドラッグ＆ドロップ</strong>する<br>
+      （アイコンを左側から右側の「Applications」フォルダの上まで、マウスでつまんで運ぶイメージ）</li>
+      <li>コピーが終わったら、そのウィンドウは閉じて大丈夫です</li>
     </ul>
 
-    <div class="success">
-      <strong>成功の確認：</strong>白い（または黒い）ウィンドウが開いて、文字が表示されていれば OK です。<br>
-      <code>あなたのMac名:~ ユーザー名$</code> のような表示が出ていれば成功です。
-    </div>
+    <h3>1-3. Cursor を初めて開く</h3>
+    <ul class="micro-steps">
+      <li>キーボードの <code>F4</code> キーを押す（または画面下の <code>Launchpad</code> をクリック）</li>
+      <li>アプリ一覧から <strong>Cursor</strong> のアイコンをクリック</li>
+      <li>「"Cursor"はインターネットからダウンロードされたアプリです。開いてもよろしいですか？」と表示されたら <strong>「開く」</strong> をクリック</li>
+      <li>「"Cursor"がデスクトップやドキュメントフォルダにアクセスしようとしています」のような<strong>権限のダイアログ</strong>が出たら、全部 <strong>「OK」や「許可」</strong> をクリックしてください（Cursor がファイルを読み書きできるようにするため）</li>
+    </ul>
 
-    <div class="note">
-      <strong>今後よく使うので、ターミナルを Dock に追加しておくと便利です。</strong><br>
-      Dock（画面下のアイコンが並んでいるバー）にあるターミナルのアイコンを右クリック → 「オプション」 → 「Dockに追加」
+    <h3>1-4. Cursor のアカウントを作る</h3>
+    <p>初回起動すると、サインイン画面が出てきます。<strong>スキップできないことが多い</strong>ので、ここでアカウントを作ります（無料です）。</p>
+    <ul class="micro-steps">
+      <li>「Sign Up」または「Get Started」のようなボタンをクリック</li>
+      <li>以下のどれかでアカウントを作る（一番ラクなのは <strong>Google アカウント</strong>）：
+        <ul>
+          <li><strong>Continue with Google</strong> → 普段使っている Google アカウントを選ぶだけ</li>
+          <li><strong>Continue with GitHub</strong> → GitHub アカウントがある人はこちら</li>
+          <li><strong>Sign up with email</strong> → メールアドレスとパスワードで登録</li>
+        </ul>
+      </li>
+      <li>ブラウザで認証画面が開いたら、許可して完了</li>
+      <li>Cursor の画面に戻って、「Welcome」画面が出ればOK</li>
+    </ul>
+
+    <h3>1-5. 初期設定の画面をスキップする</h3>
+    <ul class="micro-steps">
+      <li>キーバインド（ショートカット）の選択は <strong>「Default (VS Code)」</strong> を選択</li>
+      <li>言語の選択は日本語でも英語でも好きな方で（このガイドは英語メニュー前提で書いていますが、日本語でも操作はほぼ同じです）</li>
+      <li>「Import from VS Code?」などは全部 <strong>「Skip」や「Continue」</strong> でOK</li>
+      <li>最終的に、濃いグレーの画面で「Welcome」や「Get Started」が出ていればOK</li>
+    </ul>
+  </div>
+
+  <!-- ===== Windows版 Cursorインストール ===== -->
+  <div class="os-win">
+    <h3>1-2. Cursor をインストールする（Windows）</h3>
+    <ul class="micro-steps">
+      <li>ダウンロードフォルダの中にある <code>Cursor Setup *.exe</code> という名前のファイルを<strong>ダブルクリック</strong>して開く</li>
+      <li>「このアプリがデバイスに変更を加えることを許可しますか？」と聞かれたら <strong>「はい」</strong> をクリック</li>
+      <li>インストーラー画面が出たら、<strong>基本的に「Next」を押し続けるだけ</strong>で大丈夫です</li>
+      <li>「Install」→「Finish」の順にクリックして完了</li>
+    </ul>
+
+    <h3>1-3. Cursor を初めて開く</h3>
+    <ul class="micro-steps">
+      <li>デスクトップに作られた <strong>Cursor のアイコン</strong>をダブルクリック<br>
+      （もしデスクトップにない場合は、キーボードの <code>Windows</code> キーを押して「Cursor」と入力）</li>
+      <li>「このアプリがデバイスに変更を加えることを許可しますか？」と出たら <strong>「はい」</strong> をクリック</li>
+      <li>Windows Defender やセキュリティソフトの警告が出たら <strong>「許可」</strong> または <strong>「実行」</strong> を選択</li>
+    </ul>
+
+    <h3>1-4. Cursor のアカウントを作る</h3>
+    <p>初回起動すると、サインイン画面が出てきます。<strong>スキップできないことが多い</strong>ので、ここでアカウントを作ります（無料です）。</p>
+    <ul class="micro-steps">
+      <li>「Sign Up」または「Get Started」のようなボタンをクリック</li>
+      <li>以下のどれかでアカウントを作る（一番ラクなのは <strong>Google アカウント</strong>）：
+        <ul>
+          <li><strong>Continue with Google</strong> → 普段使っている Google アカウントを選ぶだけ</li>
+          <li><strong>Continue with GitHub</strong> → GitHub アカウントがある人はこちら</li>
+          <li><strong>Sign up with email</strong> → メールアドレスとパスワードで登録</li>
+        </ul>
+      </li>
+      <li>ブラウザで認証画面が開いたら、許可して完了</li>
+      <li>Cursor の画面に戻って、「Welcome」画面が出ればOK</li>
+    </ul>
+
+    <h3>1-5. 初期設定の画面をスキップする</h3>
+    <ul class="micro-steps">
+      <li>キーバインド（ショートカット）の選択は <strong>「Default (VS Code)」</strong> を選択</li>
+      <li>言語の選択は日本語でも英語でも好きな方で（このガイドは英語メニュー前提で書いていますが、日本語でも操作はほぼ同じです）</li>
+      <li>「Import from VS Code?」などは全部 <strong>「Skip」や「Continue」</strong> でOK</li>
+      <li>最終的に、濃いグレーの画面で「Welcome」や「Get Started」が出ていればOK</li>
+    </ul>
+  </div>
+
+  <div class="success">
+    <strong>成功の確認：</strong>Cursor のメイン画面（濃いグレーのウィンドウ）が開いて、「Welcome」や「Get Started」のような画面が表示されていればOKです。
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ Cursor の中のAI機能は、このガイドでは使いません</strong><br>
+    Cursor には元々、Tab補完・<code>Cmd+K</code>・右側のチャットなど、独自のAI機能がついています。<br>
+    これらは便利ですが、<strong>このガイドでは一切使いません</strong>。使うのは<strong>画面下のターミナル画面で動く Claude Code だけ</strong>です。<br><br>
+    右側にチャット画面が勝手に出てきたら、右上の <code>×</code> で閉じてください（邪魔なだけで、閉じても問題ありません）。<br>
+    Cursor は「エディタとターミナルが一緒になった便利な箱」くらいのイメージで使えばOKです。
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 2. Cursorの中でターミナルを開く -->
+<!-- ============================== -->
+<div class="section" id="s2">
+  <h2><span class="step-badge">2</span>Cursor の中でターミナルを開く</h2>
+
+  <p>ここから先、ほぼすべての作業は <strong>Cursor の中のターミナル</strong>（文字を打つ画面）で行います。<br>
+  「ターミナル」と聞くと難しそうですが、やることは<strong>文字を打って Enter を押すだけ</strong>なので安心してください。</p>
+
+  <h3>ターミナルパネルを表示する</h3>
+  <p>Cursor を開いた状態で、以下の手順でターミナルを開きます。</p>
+
+  <ul class="micro-steps">
+    <li>画面の一番上のメニューバーから <strong>「Terminal」</strong>（または「ターミナル」）という項目をクリック</li>
+    <li>出てきたメニューから一番上の <strong>「New Terminal」</strong>（新しいターミナル）をクリック</li>
+  </ul>
+
+  <div class="note">
+    <strong>💡 ショートカットキーについての注意</strong><br>
+    ネットで検索すると「<code>Ctrl + `</code>(バッククォート) で開ける」と書いてありますが、<strong>日本語キーボードにはこのキーが単独では存在しないことが多く</strong>、初心者の方はまず迷います。<br>
+    <strong>このガイドでは、毎回メニューから開く方法だけ覚えれば十分です。</strong>慣れてきてからショートカットを調べればOK。
+  </div>
+
+  <!-- Windows向けシェル注意 -->
+  <div class="os-win">
+    <div class="warning">
+      <strong>⚠️ ターミナルに「PS」で始まる表示が出ない場合（Windows）</strong><br>
+      Cursor が別のシェル（Command Prompt や Git Bash など）で開くことがあります。このガイドは <strong>PowerShell</strong> を前提にしているので、以下で切り替えてください：
+      <ul>
+        <li>ターミナルの右上のほうに、<strong>「+」ボタンの横に小さな下向き▽マーク</strong>があります</li>
+        <li>▽をクリック → 「<strong>PowerShell</strong>」または「<strong>Windows PowerShell</strong>」を選択</li>
+        <li>新しく PowerShell のタブが開くので、そちらを使ってください</li>
+      </ul>
     </div>
   </div>
 
-  <!-- ===== Windows版 ===== -->
-  <div class="os-win">
-    <h3>Windows で PowerShell を開く方法</h3>
-    <p>Windows では「ターミナル」の代わりに <strong>「PowerShell」</strong> というアプリを使います。<br>
-    やることは同じで、文字を打って Enter を押すだけです。</p>
+  <div class="success">
+    <strong>成功の確認：</strong>Cursor の画面の<strong>下半分</strong>に、黒っぽい画面（ターミナル）が開きます。<br>
+    <span class="os-mac"><code>ユーザー名@MacBook-Pro ~ %</code></span><span class="os-win"><code>PS C:\Users\あなたの名前&gt;</code></span> のような表示が出ていればOKです。<br>
+    ここに文字を打って Enter を押すことで、パソコンに命令できます。
+  </div>
 
-    <ul class="micro-steps">
-      <li>画面の一番下にある <strong>タスクバー</strong>（横長のバー）の中にある <strong>検索ボックス</strong>（虫眼鏡アイコン）をクリックする<br>
-      → もし検索ボックスが見当たらない場合は、キーボードの <code>Windows</code> キー（窓のマーク）を押してください</li>
-      <li>検索ボックスに <strong>「PowerShell」</strong> と入力する</li>
-      <li>「Windows PowerShell」というアプリが表示されるので、<strong>クリック</strong>して開く</li>
-    </ul>
-
-    <div class="warning">
-      <strong>「管理者として実行」は選ばないでください。</strong><br>
-      普通にクリックして開けば大丈夫です。「管理者として実行」は今は使いません。
-    </div>
-
-    <div class="success">
-      <strong>成功の確認：</strong>青い背景のウィンドウが開いて、<br>
-      <code>PS C:\Users\あなたの名前&gt;</code> のような表示が出ていれば成功です。
-    </div>
-
-    <div class="note">
-      <strong>今後よく使うので、タスクバーにピン留めしておくと便利です。</strong><br>
-      タスクバーにある PowerShell のアイコンを右クリック → 「タスクバーにピン留めする」
-    </div>
+  <div class="note">
+    <strong>ターミナルを間違えて閉じてしまっても大丈夫。</strong><br>
+    同じ方法（メニュー → Terminal → New Terminal）でいつでも開き直せます。
   </div>
 </div>
 
 <!-- ============================== -->
 <!-- 2. Node.js をインストール -->
 <!-- ============================== -->
-<div class="section" id="s2">
-  <h2><span class="step-badge">2</span>Node.js をインストールする</h2>
+<div class="section" id="s3">
+  <h2><span class="step-badge">3</span>Node.js をインストールする</h2>
 
   <p>Claude Code を動かすために必要なソフトです。<strong>最初に1回入れるだけ</strong>で、あとは触る必要はありません。</p>
 
   <h3>まず、すでに入っているか確認する</h3>
-  <p>ターミナル<span class="os-win">（PowerShell）</span>に以下を<strong>そのままコピペ</strong>して Enter を押してください：</p>
+  <p>Cursor の下に開いたターミナルに、以下を<strong>そのままコピペ</strong>して Enter を押してください：</p>
   <pre><code>node -v</code></pre>
 
   <div class="success">
@@ -480,9 +692,9 @@
     </ul>
 
     <div class="warning">
-      <strong>インストール後は、PowerShell をいったん閉じてから開き直してください。</strong><br>
-      閉じないと、新しくインストールしたソフトが認識されないことがあります。<br>
-      PowerShell のウィンドウ右上の × ボタンで閉じて、ステップ1の方法でもう一度開いてください。
+      <strong>インストール後は、Cursor をいったん閉じてから開き直してください。</strong><br>
+      閉じないと、新しくインストールしたソフトが Cursor のターミナルから認識されません。<br>
+      Cursor のウィンドウ右上の × ボタンで閉じて、もう一度 Cursor を開いて、ステップ2 の方法でターミナルを開き直してください。
     </div>
   </div>
 
@@ -496,14 +708,14 @@
 <!-- ============================== -->
 <!-- 2b. Git をインストール（Windows のみ） -->
 <!-- ============================== -->
-<div class="section os-win" id="s2b">
-  <h2><span class="step-badge">2b</span>Git をインストールする（Windows のみ）</h2>
+<div class="section os-win" id="s3b">
+  <h2><span class="step-badge">3b</span>Git をインストールする（Windows のみ）</h2>
 
   <p>Git は「ファイルの変更履歴を記録する仕組み」で、Claude Code を安全に使うために必要です。<br>
   <strong>Mac には最初から入っていますが、Windows には入っていない</strong>ので、ここでインストールします。</p>
 
   <h3>まず、すでに入っているか確認する</h3>
-  <p>PowerShell に以下をコピペして Enter：</p>
+  <p>Cursor のターミナルに以下をコピペして Enter：</p>
   <pre><code>git --version</code></pre>
 
   <div class="success">
@@ -526,8 +738,8 @@
   </ul>
 
   <div class="warning">
-    <strong>インストール後は、PowerShell をいったん閉じてから開き直してください。</strong><br>
-    閉じないと Git が認識されません。
+    <strong>インストール後は、Cursor をいったん閉じてから開き直してください。</strong><br>
+    閉じないと Git が Cursor のターミナルから認識されません。
   </div>
 
   <h3>インストールできたか確認する</h3>
@@ -540,10 +752,10 @@
 <!-- ============================== -->
 <!-- 3. Claude Code をインストール -->
 <!-- ============================== -->
-<div class="section" id="s3">
-  <h2><span class="step-badge">3</span>Claude Code をインストールする</h2>
+<div class="section" id="s4">
+  <h2><span class="step-badge">4</span>Claude Code をインストールする</h2>
 
-  <p>ターミナル<span class="os-win">（PowerShell）</span>に以下を<strong>そのままコピペ</strong>して Enter を押してください：</p>
+  <p>Cursor のターミナルに以下を<strong>そのままコピペ</strong>して Enter を押してください：</p>
   <pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
 
   <p>2〜3分かかることがあります。画面にいろいろ文字が流れますが、<strong>何も操作しなくて OK</strong> です。<br>
@@ -564,10 +776,11 @@
   <div class="os-win">
     <div class="warning">
       <strong>もしエラーが出た場合（Windows）：</strong><br>
-      PowerShell を閉じて、<strong>「管理者として実行」で開き直して</strong>ください。<br><br>
-      やり方：タスクバーの検索で「PowerShell」と入力 → 「Windows PowerShell」を<strong>右クリック</strong> → 「<strong>管理者として実行</strong>」を選択<br><br>
-      開いたら、もう一度同じコマンドを実行してください：
+      権限エラーの可能性があります。以下の手順を試してください。<br><br>
+      <strong>やり方：</strong>いったん Cursor を閉じる → キーボードの <code>Windows</code> キーを押して「Cursor」と入力 → Cursor のアイコンを<strong>右クリック</strong> → 「<strong>管理者として実行</strong>」を選択<br><br>
+      Cursor が開いたら、もう一度ターミナルを開いて（Terminal → New Terminal）、同じコマンドを実行してください：
       <pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+      ※うまくいったら、次回からは普通に（管理者ではなく）Cursor を開いて大丈夫です。
     </div>
   </div>
 
@@ -575,6 +788,11 @@
   <pre><code>claude --version</code></pre>
   <div class="success">
     <strong>バージョン番号が表示されたら成功です！</strong><br>例：<code>1.0.xx</code> のような数字が出ればOK。
+  </div>
+
+  <div class="note">
+    <strong>もし <code>claude --version</code> でエラーが出ても、<code>claude</code> とだけ打って起動できれば問題ありません。</strong>バージョンによっては <code>--version</code> フラグが効かないことがあります。<br>
+    ただし、Claude Code の起動はステップ6でやるので、ここではまだ <code>claude</code> とは打たないでください。
   </div>
 
   <div class="checkpoint">
@@ -589,8 +807,8 @@
 <!-- ============================== -->
 <!-- 4. アカウント作成 -->
 <!-- ============================== -->
-<div class="section" id="s4">
-  <h2><span class="step-badge">4</span>Anthropic のアカウントを作る（課金設定）</h2>
+<div class="section" id="s5">
+  <h2><span class="step-badge">5</span>Anthropic のアカウントを作る（課金設定）</h2>
 
   <p>Claude Code を使うには、Anthropic（クロード を作っている会社）のアカウントが必要です。<br>
   ここだけはターミナルではなく、<strong>普段使っているブラウザ（Safari や Chrome など）で作業</strong>します。</p>
@@ -630,35 +848,36 @@
 <!-- ============================== -->
 <!-- 5. 起動する -->
 <!-- ============================== -->
-<div class="section" id="s5">
-  <h2><span class="step-badge">5</span>Claude Code を起動する</h2>
+<div class="section" id="s6">
+  <h2><span class="step-badge">6</span>Claude Code を起動する</h2>
 
-  <p>いよいよ起動です。コマンドを<strong>順番に</strong>実行してください。<br>
-  1つ実行するごとに Enter を押して、画面が落ち着いてから次を実行してください。</p>
+  <p>いよいよ起動です。ここでは、<strong>練習用のフォルダを Cursor 上で作って、その中で Claude Code を起動する</strong>流れで進めます。<br>
+  コマンドでフォルダを作るよりも、<strong>マウス操作で作る方が迷わない</strong>ので、そちらで進めます。</p>
 
-  <h3>5-1. 練習用のフォルダを作る</h3>
-  <p>以下をコピペして Enter：</p>
+  <h3>6-1. Cursor で練習用フォルダを作って開く</h3>
 
-  <div class="os-mac">
-    <pre><code>mkdir ~/my-first-project</code></pre>
-    <div class="note"><code>mkdir</code> は「フォルダを作る」コマンドです。あなたのホームフォルダ（Macの中の自分の場所）に「my-first-project」というフォルダが作られます。</div>
+  <ul class="micro-steps">
+    <li>Cursor の画面上部のメニューから <strong>「File」→「Open Folder」</strong> をクリック<br>
+    <span class="os-mac">（日本語メニューの場合は「ファイル」→「フォルダーを開く」）</span></li>
+    <li>フォルダ選択のダイアログが出てきます。<span class="os-mac">左側のメニューから <strong>「Home」</strong>（家のアイコン、あなたのユーザー名のフォルダ）をクリック</span><span class="os-win">左側のメニューから <strong>「PC」→「ローカルディスク(C:)」→「Users」→「あなたのユーザー名」</strong> の順にダブルクリックで開いていく</span></li>
+    <li><span class="os-mac">ダイアログの<strong>左下</strong>に <strong>「New Folder」</strong>（新規フォルダ）というボタンがあります。これをクリック</span><span class="os-win">ダイアログの<strong>上部</strong>にある <strong>「新しいフォルダー」</strong> ボタンをクリック</span></li>
+    <li>新しいフォルダの名前を聞かれるので、<strong><code>my-first-project</code></strong> と入力して<span class="os-mac"> <strong>「Create」</strong></span><span class="os-win"> Enter</span></li>
+    <li>作られた <strong>「my-first-project」</strong> フォルダが選択された状態で、<span class="os-mac"><strong>「Open」</strong></span><span class="os-win"><strong>「フォルダーの選択」</strong></span> をクリック</li>
+    <li>「このフォルダ内のファイルの作成者を信頼しますか？」のような確認が出たら <strong>「Yes, I trust the authors」</strong>（作成者を信頼します）をクリック</li>
+  </ul>
+
+  <div class="success">
+    Cursor の左側にフォルダ名（MY-FIRST-PROJECT）が表示されていれば成功です。これがこれからの「作業場所」になります。
   </div>
-  <div class="os-win">
-    <pre><code>mkdir $HOME\my-first-project</code></pre>
-    <div class="note"><code>mkdir</code> は「フォルダを作る」コマンドです。あなたのユーザーフォルダの中に「my-first-project」というフォルダが作られます。</div>
-  </div>
 
-  <h3>5-2. そのフォルダに移動する</h3>
+  <h3>6-2. ターミナルをもう一度開く</h3>
+  <p>フォルダを開き直したので、ターミナルも開き直します。</p>
+  <ul class="micro-steps">
+    <li>メニューの <strong>「Terminal」→「New Terminal」</strong> をクリック</li>
+    <li>画面の下にターミナルが出てきます。自動的に先ほど作った <code>my-first-project</code> フォルダの中にいる状態になっています</li>
+  </ul>
 
-  <div class="os-mac">
-    <pre><code>cd ~/my-first-project</code></pre>
-  </div>
-  <div class="os-win">
-    <pre><code>cd $HOME\my-first-project</code></pre>
-  </div>
-  <div class="note"><code>cd</code> は「移動する」コマンドです。作ったフォルダの中に入ります。</div>
-
-  <h3>5-3. Git を初期化する</h3>
+  <h3>6-3. Git を初期化する</h3>
   <pre><code>git init</code></pre>
 
   <div class="warning">
@@ -669,28 +888,67 @@
     家の火災保険みたいなもので、「入れておいてよかった」と思うタイミングが必ず来ます。
   </div>
 
+  <!-- Mac: Xcode Command Line Tools ダイアログ -->
+  <div class="os-mac">
+    <div class="warning">
+      <strong>⚠️ Mac で「コマンドラインデベロッパツールのインストール」というダイアログが出た場合</strong><br>
+      Mac で初めて <code>git</code> コマンドを使うと、<strong>「"git"コマンドを実行するには、コマンドラインデベロッパツールが必要です」</strong>というダイアログが出ることがあります。これは Mac に開発用のツールをインストールするための画面です。<br><br>
+      <strong>対処法：</strong><br>
+      <ul>
+        <li>ダイアログの <strong>「インストール」</strong> ボタンをクリック</li>
+        <li>利用規約に同意して、インストールを開始</li>
+        <li><strong>数分〜十数分かかります</strong>（ネット環境によってはもっと）。進捗バーが進んでいるあいだは待つだけでOK</li>
+        <li>「ソフトウェアがインストールされました」と出たら「完了」をクリック</li>
+        <li>インストールが終わったら、Cursor のターミナルでもう一度 <code>git init</code> を実行</li>
+      </ul>
+      止まったわけではないので、焦らず待ってください。
+    </div>
+  </div>
+
   <div class="success">
     <strong><code>Initialized empty Git repository</code></strong> と表示されたらOKです。
   </div>
 
-  <h3>5-4. Claude Code を起動！</h3>
+  <h3>6-4. Claude Code を起動！</h3>
   <pre><code>claude</code></pre>
 
+  <p>初回起動では、<strong>いくつかの質問が順番に出てきます</strong>。以下の順番で答えてください。</p>
+
   <ul class="micro-steps">
-    <li>初回は、<strong>ブラウザが自動的に開きます</strong>（ターミナルとは別のウィンドウが出てきます）</li>
-    <li>Anthropic のログイン画面が出るので、<strong>ステップ4で作ったアカウントでログイン</strong>してください</li>
-    <li>「許可しますか？」のような画面が出たら <strong>「許可」</strong> を押す</li>
-    <li>ブラウザの方は閉じてOKです。ターミナル<span class="os-win">（PowerShell）</span>に戻ると、入力待ちの画面になっています</li>
+    <li><strong>テーマ(見た目)の選択：</strong>「Dark mode」「Light mode」などが出てきます。好きな方を<strong>矢印キー(↑↓)で選んで Enter</strong>。迷ったら「Dark mode」でOK</li>
+    <li><strong>ログイン方法の選択：</strong>「How would you like to log in?」のような画面が出ます。以下のような選択肢があります：
+      <ul>
+        <li><code>Claude account with subscription</code>（Claude Pro/Maxプランの人用）</li>
+        <li><strong><code>Anthropic Console account</code></strong> ← <strong>ステップ5で作ったアカウントはこちら。これを選んでください</strong></li>
+        <li><code>API key</code>（上級者用）</li>
+      </ul>
+      矢印キー(↑↓)で <strong>「Anthropic Console account」</strong> に合わせて Enter
+    </li>
+    <li><strong>ブラウザが自動で開きます。</strong>Anthropic のログイン画面が表示されるので、<strong>ステップ5で作ったアカウントでログイン</strong>してください</li>
+    <li>「Authorize Claude Code」のような認証許可画面が出たら <strong>「Authorize」</strong>（許可）をクリック</li>
+    <li>ブラウザに「You can close this window」のように表示されたら、ブラウザは閉じてOKです</li>
+    <li>Cursor のターミナルに戻ると、さらにいくつかの Yes/No 質問が出る場合があります：
+      <ul>
+        <li><strong>「Do you trust the files in this folder?」</strong>(このフォルダのファイルを信頼しますか？) → <strong>1. Yes, proceed</strong> を選択</li>
+        <li>その他の質問は、基本的に <strong>Enter（デフォルト）で進める</strong>で大丈夫です</li>
+      </ul>
+    </li>
   </ul>
 
   <div class="success">
-    <strong>ターミナルに <code>&gt;</code> のような入力待ちの表示が出たら、起動成功です！</strong><br>
+    <strong>ターミナルの画面が変わって、下のほうに <code>&gt;</code> のような入力欄が出たら、起動成功です！</strong><br>
     ここに日本語で指示を打ち込めば、AIが作業を始めてくれます。
+  </div>
+
+  <div class="warning">
+    <strong>もし「Credit balance is too low」や「認証エラー」が出た場合</strong><br>
+    ステップ5で<strong>クレジットのチャージ（$5〜$10）を済ませていない</strong>可能性があります。<br>
+    <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> にログインして、左メニューの「Billing」から <strong>Credits を追加</strong>してから、もう一度 <code>claude</code> を実行してください。
   </div>
 
   <div class="checkpoint">
     <div class="check-title">ここまでのチェックポイント</div>
-    <p>ターミナル<span class="os-win">（PowerShell）</span>で Claude Code が起動して入力待ちになっている → 準備完了！<br>
+    <p>Cursor のターミナルで Claude Code が起動して入力待ちになっている → 準備完了！<br>
     ここから先は、使い方を学んでいきましょう。</p>
   </div>
 </div>
@@ -698,8 +956,8 @@
 <!-- ============================== -->
 <!-- 6. CLAUDE.md -->
 <!-- ============================== -->
-<div class="section" id="s6">
-  <h2><span class="step-badge">6</span>CLAUDE.md を作る（AI への指示書）</h2>
+<div class="section" id="s7">
+  <h2><span class="step-badge">7</span>CLAUDE.md を作る（AI への指示書）</h2>
 
   <p>CLAUDE.md は「<strong>Claude Code への設定ファイル</strong>」です。<br>
   「このプロジェクトではこうしてね」というルールを書いておくと、Claude Code が毎回それに従って動いてくれます。</p>
@@ -733,8 +991,8 @@
 <!-- ============================== -->
 <!-- 7. 指示の出し方 -->
 <!-- ============================== -->
-<div class="section" id="s7">
-  <h2><span class="step-badge">7</span>指示の出し方を覚える（ここが一番大事）</h2>
+<div class="section" id="s8">
+  <h2><span class="step-badge">8</span>指示の出し方を覚える（ここが一番大事）</h2>
 
   <p>Claude Code は<strong>指示の出し方で結果が大きく変わります。</strong><br>
   ここをちゃんと押さえるだけで、「使えない…」から「めっちゃ便利！」に変わります。</p>
@@ -788,10 +1046,10 @@
 <!-- ============================== -->
 <!-- 8. 覚えておくべき操作 -->
 <!-- ============================== -->
-<div class="section" id="s8">
-  <h2><span class="step-badge">8</span>覚えておくべき操作一覧</h2>
+<div class="section" id="s9">
+  <h2><span class="step-badge">9</span>覚えておくべき操作一覧</h2>
 
-  <h3>ターミナル<span class="os-win">（PowerShell）</span>でよく使うコマンド</h3>
+  <h3>Cursor のターミナルでよく使うコマンド</h3>
   <table>
     <tr><th>やりたいこと</th><th>打つもの</th><th>補足</th></tr>
     <tr><td>Claude Code を起動する</td><td><code>claude</code></td><td>プロジェクトフォルダ内で打つ</td></tr>
@@ -823,8 +1081,8 @@
 <!-- ============================== -->
 <!-- 9. 安全ルール -->
 <!-- ============================== -->
-<div class="section" id="s9">
-  <h2><span class="step-badge">9</span>安全に使うためのルール</h2>
+<div class="section" id="s10">
+  <h2><span class="step-badge">10</span>安全に使うためのルール</h2>
 
   <h3>絶対に守ってほしい3つのルール</h3>
 
@@ -851,7 +1109,7 @@
   <p>落ち着いて、以下を順番にやってください：</p>
   <ul class="micro-steps">
     <li>まず <code>/exit</code> と入力するか、キーボードの <code>Ctrl</code> キーと <code>C</code> キーを同時に押して、Claude Code を終了する</li>
-    <li>ターミナル<span class="os-win">（PowerShell）</span>で以下を打って、何が変わったか確認する：
+    <li>Cursor のターミナルで以下を打って、何が変わったか確認する：
       <pre><code>git diff</code></pre>
       変更された内容が赤と緑の文字で表示されます。
     </li>
@@ -867,8 +1125,8 @@
 <!-- ============================== -->
 <!-- 10. 練習 -->
 <!-- ============================== -->
-<div class="section" id="s10">
-  <h2><span class="step-badge">10</span>実際に練習してみよう</h2>
+<div class="section" id="s11">
+  <h2><span class="step-badge">11</span>実際に練習してみよう</h2>
 
   <p>ここまでの設定が終わったら、実際に Claude Code を使ってみましょう。<br>
   以下の3つを<strong>順番に</strong>やってみてください。</p>
@@ -884,14 +1142,15 @@
 - これらを箇条書きで表示してください
 - 見た目はシンプルで読みやすい感じで</code></pre>
     <p>（自分の名前）などは自分の情報に書き換えてください。</p>
-    <p><strong>できたら確認：</strong>ターミナル<span class="os-win">（PowerShell）</span>を<strong>もう1つ開いて</strong>以下を実行：</p>
-    <div class="os-mac">
-      <pre><code>open ~/my-first-project/index.html</code></pre>
-    </div>
-    <div class="os-win">
-      <pre><code>start $HOME\my-first-project\index.html</code></pre>
-    </div>
-    <p>ブラウザでページが表示されたら成功です！</p>
+    <p><strong>できたら確認：</strong></p>
+    <ul class="micro-steps">
+      <li>Cursor の<strong>左側のファイル一覧</strong>に <code>index.html</code> が表示されているはずです</li>
+      <li><code>index.html</code> を<strong>右クリック</strong>する</li>
+      <li><span class="os-mac">メニューから <strong>「Reveal in Finder」</strong>（Finderで表示）をクリック<br>→ Finder が開いて <code>index.html</code> がハイライトされます</span><span class="os-win">メニューから <strong>「Reveal in File Explorer」</strong>（エクスプローラーで表示）をクリック<br>→ エクスプローラーが開いて <code>index.html</code> がハイライトされます</span></li>
+      <li>その <code>index.html</code> を<strong>ダブルクリック</strong></li>
+      <li>デフォルトのブラウザ（<span class="os-mac">Safari</span><span class="os-win">Edge</span> など）で自動的に開きます</li>
+    </ul>
+    <p>ブラウザにあなたの自己紹介ページが表示されたら成功です！</p>
   </div>
 
   <div class="practice">
@@ -920,8 +1179,8 @@
 <!-- ============================== -->
 <!-- 11. よくあるエラー -->
 <!-- ============================== -->
-<div class="section" id="s11">
-  <h2><span class="step-badge">11</span>よくあるエラーと対処法</h2>
+<div class="section" id="s12">
+  <h2><span class="step-badge">12</span>よくあるエラーと対処法</h2>
 
   <div class="faq-item">
     <div class="faq-q">「command not found: claude」<span class="os-win"> または「'claude' は、...認識されていません」</span>と出る</div>
@@ -933,16 +1192,16 @@
       <pre><code>sudo npm install -g @anthropic-ai/claude-code</code></pre>
     </div>
     <div class="os-win">
-      <p>それでもダメなら、PowerShell を「管理者として実行」で開き直してから再実行してください。</p>
+      <p>それでもダメなら、Cursor を「管理者として実行」で開き直してから再実行してください。（やり方：キーボードの <code>Windows</code> キーを押して「Cursor」と入力 → Cursor のアイコンを右クリック → 「管理者として実行」）</p>
     </div>
   </div>
 
   <div class="faq-item">
     <div class="faq-q">「command not found: node」<span class="os-win"> または「'node' は、...認識されていません」</span>と出る</div>
     <p><strong>原因：</strong>Node.js がインストールされていません。</p>
-    <p><strong>対処：</strong>ステップ2に戻って Node.js をインストールしてください。</p>
+    <p><strong>対処：</strong>ステップ3に戻って Node.js をインストールしてください。</p>
     <div class="os-win">
-      <p>Windows の場合、インストール後に PowerShell を閉じて開き直すのを忘れていませんか？</p>
+      <p>Windows の場合、インストール後に Cursor を閉じて開き直すのを忘れていませんか？</p>
     </div>
   </div>
 
@@ -968,7 +1227,7 @@
     <div class="faq-q">クレジットカード登録画面で「一時的に利用できません」と出る</div>
     <p><strong>原因：</strong>ブラウザの自動翻訳が悪さをしています。</p>
     <p><strong>対処：</strong>ブラウザの翻訳をオフにして、英語のまま操作してください。<br>
-    詳しくはステップ4の注意書きを確認してください。</p>
+    詳しくはステップ5の注意書きを確認してください。</p>
   </div>
 
   <div class="faq-item os-mac">
@@ -994,8 +1253,8 @@
 <!-- ============================== -->
 <!-- 12. 次のステップ -->
 <!-- ============================== -->
-<div class="section" id="s12">
-  <h2><span class="step-badge">12</span>慣れてきたら次にやること</h2>
+<div class="section" id="s13">
+  <h2><span class="step-badge">13</span>慣れてきたら次にやること</h2>
 
   <p>基本操作に慣れたら、Claude Code でこんなこともできます：</p>
 
@@ -1019,8 +1278,8 @@
     このフォルダで Claude Code を起動すると、<br>
     <strong>初心者向けの案内が自動的に始まります。</strong><br><br>
     1. <code>claude-code-starter</code> フォルダをコピーして好きな場所に置く<br>
-    2. ターミナル<span class="os-win">（PowerShell）</span>で <code>cd claude-code-starter</code> で移動<br>
-    3. <code>claude</code> で起動 → 自動で案内が始まります</p>
+    2. Cursor の「File → Open Folder」でそのフォルダを開く<br>
+    3. ターミナル（Terminal → New Terminal）を開いて <code>claude</code> で起動 → 自動で案内が始まります</p>
   </div>
 </div>
 
