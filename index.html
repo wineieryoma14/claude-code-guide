@@ -314,10 +314,41 @@
   <button class="os-btn" onclick="switchOS('win')">Windows の方はこちら</button>
 </div>
 
+<!-- ===== 困ったらスクショで質問 ===== -->
+<div class="section" id="s-help" style="border: 2px solid #d4a574; background: linear-gradient(135deg, #fdf6ee, #fff);">
+  <h2><span class="step-badge">!</span>つまずいたら「スクショ」を Claude に送ってください</h2>
+
+  <p>このガイドは初めての人でも進められるように書いていますが、<strong>パソコンの設定や画面の見た目は人によって少しずつ違います。</strong>「ボタンが見つからない」「同じエラーが出ない」など、どうしてもつまずく場面があります。</p>
+
+  <p><strong>そんな時は、自分で抱え込まずに「画面のスクショ」を撮って Claude に送って質問してください。</strong>たいてい数十秒で「次にこれを押してください」と教えてくれます。</p>
+
+  <h3>やり方（3ステップだけ）</h3>
+  <ol class="micro-steps">
+    <li>困っている画面のスクショを撮る<br>
+      <span class="os-mac"><strong>Mac：</strong> <code>Command + Shift + 4</code> を押して、撮りたい範囲をドラッグ（デスクトップに保存される）</span>
+      <span class="os-win"><strong>Windows：</strong> <code>Windows + Shift + S</code> を押して、撮りたい範囲をドラッグ</span>
+    </li>
+    <li><a href="https://claude.ai/" target="_blank" rel="noopener">claude.ai</a> を開いて、チャット欄に<strong>スクショをドラッグ＆ドロップ</strong>で貼り付ける<br>
+      （Claude Code がまだ起動できていない段階でも、ブラウザの Claude なら無料で使えます）
+    </li>
+    <li>こう聞く 👇
+      <pre><code>Claude Code 入門ガイドの「○○のステップ」で詰まっています。
+このスクショの状態から、次に何をすればいいですか？</code></pre>
+    </li>
+  </ol>
+
+  <div class="note">
+    <strong>エラーメッセージが出ているときのコツ：</strong><br>
+    画面に出ている赤い文字や英語のエラー文を、<strong>そのままコピペして一緒に送る</strong>と、さらに正確に答えてくれます。<br>
+    「全部自分で理解してから進める」必要はありません。<strong>分からないところは Claude に聞きながら進めるのが、一番早くて確実です。</strong>
+  </div>
+</div>
+
 <!-- 目次 -->
 <div class="toc">
   <h2>目次（上から順番にやってください）</h2>
   <ol>
+    <li><a href="#s-help">⚡ つまずいたらスクショを Claude に送ろう（最重要）</a></li>
     <li><a href="#s0">そもそも Claude Code ってなに？</a></li>
     <li><a href="#s-pricing">料金とプランについて知っておこう</a></li>
     <li><a href="#s1">Cursor（エディタ）をインストールする</a></li>
